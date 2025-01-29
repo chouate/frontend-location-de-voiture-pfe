@@ -1,0 +1,154 @@
+
+<div style="padding: 0px;padding-top: 30px;margin: 0%;" class=" row ">
+
+  <div class=" col m4 offset-m4 card  hoverable ">
+    <div  class=" col m6  input-field ">
+      <input type="number" id="reservationId" [(ngModel)]="searchReservationId" />
+      <label for="reservationId">Numéro de réservation</label>
+    </div>
+    <div style="margin-top: 25px;"  class="col m6 center">
+      <button style="color: black;" class="btn waves-light #e0e0e0 grey lighten-2" (click)="searchReservation()">Rechercher</button>
+    </div>
+  </div>
+  
+  
+  
+</div>
+
+<div *ngIf="reservationCherchee" style="padding-top: 0px;margin: 0px;" class="row">
+  <div class="col s12 m10 l offset-m0 offset-l2">
+    <table  class="highlight bordered striped">
+      <thead>
+        <tr class="grey darken-1 #b9f6ca green accent-1 lighten-2">
+          <th>N° de réservation</th>
+          <th>Identifiant du client</th>
+          <th>Identifiant de voiture</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <td>{{ reservationCherchee.id }}</td>
+          <td>
+            {{ reservationCherchee.userId }}
+            <a style="padding-left: 100px; margin-bottom: -5px; cursor: pointer;" class="material-icons">visibility</a>
+          </td>
+          <td>
+            {{ reservationCherchee.carId }}
+            <a (click)="goToVoiture(reservationCherchee.id, reservationCherchee.carId)" style="padding-left: 100px; cursor: pointer;" class="material-icons tooltipped" data-position="bottom" data-tooltip="Voir la voiture">visibility</a>
+          </td>
+          <td>{{ reservationCherchee.startDate }}</td>
+          <td>{{ reservationCherchee.endDate }}</td>
+          <td [ngClass]="{'confirmed': reservationCherchee.status === 'Confirmée','attente': reservationCherchee.status === 'En attente', 'cancelled': reservationCherchee.status === 'Annulée'}">{{ reservationCherchee.status }}</td>
+          <td>
+            <button class="btn waves-effect waves-light" *ngIf="reservationCherchee.status === 'En attente'" (click)="confirmerReservation(reservationCherchee)">
+              Confirmer
+            </button>
+            <button class="btn waves-effect waves-light" *ngIf="reservationCherchee.status === 'En attente'" (click)="annulerReservation(reservationCherchee)">
+              Annuler
+            </button>
+            <button  class="btn waves-effect waves-light" *ngIf="reservationCherchee.status === 'En attente'" (click)="onDisponibleClick(reservationCherchee)" >
+              disponible?
+            </button>
+            <button (click)="goTocontrat(reservationCherchee)" class="btn waves-effect waves-light" *ngIf="reservationCherchee.status === 'Confirmée'">
+              Convertir en location
+            </button>
+
+            <button style="margin-left: 10px;" class="btn waves-effect waves-light " *ngIf="reservationCherchee.status === 'Annulée' || reservationCherchee.status === 'Confirmée'" (click)="supprimerReservation(reservationCherchee)">
+              <i  class="material-icons">delete</i>
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+  </div>
+</div>
+
+
+<div style="padding-top: 15px;" class="row">
+  <div class="col s12 m10 l offset-m0 offset-l2">
+    <table class="highlight bordered striped">
+      <thead>
+        <tr class="#e0e0e0 grey lighten-2">
+          <th>N° de réservation</th>
+          <th>Identifiant du client</th>
+          <th>Identifiant de voiture</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of pagedReservations">
+          <td>{{ reservation.id }}</td>
+          <td>
+            {{ reservation.userId }}
+            <a style="padding-left: 100px; margin-bottom: -5px; cursor: pointer;" class="material-icons">visibility</a>
+          </td>
+          <td>
+            {{ reservation.carId }}
+            <!-- <a (click)="goToVoiture(reservation.id, reservation.carId)" style="padding-left: 100px; cursor: pointer;" class="material-icons">visibility</a> -->
+            <!-- <a (click)="goToVoiture(reservation.id, reservation.carId)" style="padding-left: 100px; cursor: pointer;" class="tooltipped" data-position="top" data-tooltip="Voir la voiture"><i class="material-icons">visibility</i></a> -->
+            <a (click)="goToVoiture(reservation.id, reservation.carId)" style="padding-left: 100px; cursor: pointer;" class="material-icons tooltipped" data-position="bottom" data-tooltip="Voir la voiture">visibility</a>
+
+          </td>
+          <td>{{ reservation.startDate }}</td>
+          <td>{{ reservation.endDate }}</td>
+          <td [ngClass]="{'confirmed': reservation.status === 'Confirmée','attente': reservation.status === 'En attente', 'cancelled': reservation.status === 'Annulée'}">{{ reservation.status }}</td>
+          <td>
+            <button  class="btn waves-effect waves-light" *ngIf="reservation.status === 'En attente'" (click)="confirmerReservation(reservation)">
+              Confirmer
+            </button>
+            <button  class="btn waves-effect waves-light" *ngIf="reservation.status === 'En attente'" (click)="annulerReservation(reservation)">
+              Annuler
+            </button>
+            <button  class="btn waves-effect waves-light" *ngIf="reservation.status === 'En attente'" (click)="onDisponibleClick(reservation)" >
+              dispo?
+            </button>
+
+            <button (click)="goTocontrat(reservation)" class="btn waves-effect waves-light" *ngIf="reservation.status === 'Confirmée'">
+              Convertir en location
+            </button>
+
+            <button style="margin-left: 10px;" class="btn waves-effect waves-light" *ngIf="reservation.status === 'Annulée' || reservation.status === 'Confirmée'|| reservation.status === 'transformée'" (click)="supprimerReservation(reservation)">
+              <i  class="material-icons">delete</i>
+            </button>
+
+          </td>
+        </tr>
+        
+        
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <ul class="pagination">
+      <li style="cursor: pointer;border-radius:solid 100%;" class="" (click)="changePage(page)" *ngFor="let page of pages" [ngClass]="{ 'active-page': page === currentPage }">
+        <a>{{ page }}</a>
+      </li>
+    </ul>
+
+  </div>
+</div>
+<style>
+  .active-page {
+    background-color: #ccc; /* Couleur de fond pour la page active */
+    color: #fff; /* Couleur du texte pour la page active */
+  }
+  .confirmed {
+    color: green;
+  }
+
+  .cancelled {
+    color: red;
+  }
+  .attente{
+    color: rgb(255, 183, 0);
+  }
+</style>

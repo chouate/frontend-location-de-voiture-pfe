@@ -1,0 +1,54 @@
+<div style="padding-left: 100px ;padding-top: 10px;" *ngIf="voitureSelected" class="row">
+  
+  <div class="col s12 m8 offset-m2">
+    <h2 class="header center">{{ voitureSelected.name }}</h2>
+    <div class="card horizontal hoverable">
+      <div class="card-image">
+        <img [src]="voitureSelected.imageUrl">
+        <h2>{{voitureSelected.price }} DH</h2>
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <table class="bordered striped">
+            <tbody>
+              <tr>
+                <td>id </td>
+                <td><strong>{{ voitureSelected.id }}</strong></td>
+              </tr>
+              <tr>
+                <td>Nom</td>
+                <td><strong>{{ voitureSelected.name }}</strong></td>
+              </tr>
+              <tr>
+                <td>type</td>
+                <td><strong>{{ voitureSelected.type }}</strong></td>
+              </tr>
+              <tr>
+                <td>Nombre de place </td>
+                <td><strong>{{ voitureSelected.numberOfSeats }}</strong></td>
+              </tr>
+              <tr>
+                <td>Nombre de sacs</td>
+                <td><strong>{{ voitureSelected.numberOfBags }}</strong></td>
+                
+              </tr>
+              <tr>
+                <td>Type de carburant</td>
+                <td><em>{{ voitureSelected.carburant  }}</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-action">
+          <a style="cursor: pointer;" *ngIf="! testReservation" (click)="goToVouitureList()" >Retour</a>
+          <a style="cursor: pointer;" *ngIf="! testReservation" (click)="goToModifierVoiture(voitureSelected.id)" >Modifier</a>
+          <a style="cursor: pointer;" *ngIf="! testReservation" (click)="deleteVoiture(voitureSelected)">Supprimer</a>
+          <a style="cursor: pointer;" *ngIf="testReservation" (click)="goToReservationList()" >Retour</a>
+        </div>
+      </div>
+  </div>
+    
+</div>
+<h4 *ngIf='!voitureSelected' class="center">
+ <app-loader></app-loader>
+</h4>

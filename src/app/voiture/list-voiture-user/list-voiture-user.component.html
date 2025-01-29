@@ -1,0 +1,83 @@
+
+<div class="container"  >   
+    <app-search-voiture></app-search-voiture>
+    <div class="row">
+        <div class="col m12 center">
+          <div class="btn-group" role="group" aria-label="Types">
+            <button style="margin-inline: 30px;" type="button" class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('tous')" [ngClass]="{ 'active': selectedType === 'tous' }">tous</button>
+            <button style="margin-inline: 30px;" type="button" class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('compacte')" [ngClass]="{ 'active': selectedType === 'compacte' }">Compacte</button>
+            <button style="margin-inline: 30px;" type="button" class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('sporte')" [ngClass]="{ 'active': selectedType === 'sporte' }">Sporte</button>
+            <button style="margin-inline: 30px;" type="button" class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('berline')" [ngClass]="{ 'active': selectedType === 'berline' }">berline</button>
+            <button style="margin-inline: 30px;" type="button" class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('coupé')" [ngClass]="{ 'active': selectedType === 'coupé' }">coupé</button>
+            <button style="margin-inline: 30px;" type="button " class="btn btn-secondary  cyan accent-4" (click)="filterVoituresByType('break')" [ngClass]="{ 'active': selectedType === 'break' }">break</button>
+          </div>
+        </div>
+      </div>
+    <div class="row" >
+        <div *ngFor="let voiture of filteredVoitureList | paginate: { itemsPerPage: 12, currentPage: currentPage }" class="col m4 s6">
+            <div (click)="goToVoiture(voiture)" class="card horizontal" appBorderCard>
+                <div class="card-image">
+                    <img style="scroll-margin-top: 50px;" [src]="voiture.imageUrl" />
+                    <h2 >{{voiture.price}} MAD </h2>
+                </div>
+                <div class="card-stacked" >
+                    <div class="card-content">
+
+                        <p >{{  voiture.name}}</p>
+                        <!-- <p ><small>{{ voiture.carburant | voitureCarburantColor  }}</small></p> -->
+                        <span  class="{{voiture.carburant | voitureCarburantColor}}">
+                            {{voiture.carburant}}
+                        </span>
+                       <p>{{voiture.type}}</p>
+                       <!-- | voitureCarburantColor -->
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    <!-- <div class="row ">
+        <pagination-controls   (pageChange)="currentPage = $event" class=" pagination "></pagination-controls>
+    </div> -->
+    <!-- Pagination -->
+    <div class="row center">
+        <ul class="pagination">
+          <li class="waves-effect" (click)="previousPage()"><a><i class="material-icons">chevron_left</i></a></li>
+          <li class="waves-effect" *ngFor="let page of pages" [class.active]="currentPage === page" (click)="goToPage(page)"><a>{{ page }}</a></li>
+          <li class="waves-effect" (click)="nextPage()"><a><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+      
+ 
+
+</div>
+
+<style>
+    /* CSS pour le bouton de type sélectionné */
+    .btn.active {
+        background-color: #f9f5f5; /* Couleur de fond du bouton actif */
+        color: #607d8b    ; /* Couleur du texte du bouton actif */
+        font-weight: bold; /* Police en gras pour le bouton actif */
+        border-color: #263238 00b8d4; /* Couleur de la bordure du bouton actif */
+    }
+
+    .btn.active:hover {
+        background-color: #fdf8f8; /* Couleur de fond du bouton actif au survol */
+        color: black; /* Couleur du texte du bouton actif au survol */
+    }
+    
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination li {
+    cursor: pointer;
+  }
+
+  .pagination .active {
+    font-weight: bold;
+  }
+</style>

@@ -1,0 +1,28 @@
+<div style="padding-top: 50px; " class="row ">
+    <div  class="col s12 m6 offset-m3 ">
+        <div class="card ">
+            <div  class="card-content">
+                
+                <div  class="input-field ">
+                    <!-- <i  class="material-icons">search</i> -->
+                    <input 
+                        #searchBox 
+                        (keyup)="search(searchBox.value)" 
+                        placeholder="Rechercher une voiture "
+                        
+                    />
+                    
+                    <div class="collection">
+                        <a 
+                            *ngFor="let voiture of voitures$ | async"
+                            (click)="goToDetail(voiture)"
+                            class="collection-item"
+                        >
+                            {{ voiture.name }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

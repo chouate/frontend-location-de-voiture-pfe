@@ -1,0 +1,130 @@
+<!-- <div style="padding-left: 100px;" class="container">
+    <div>
+        <h2>Contrat de Location</h2>
+        <pre>{{ contratLocation }}</pre>
+      
+        <button (click)="imprimerContrat()">Imprimer</button>
+    </div>
+      
+</div> -->
+<div style="border: 2px solid black; padding: 10px;" class="container ">
+    <div class="row ">
+        <div class="col m6 ">
+            <h4 class="col m8 "> <strong>CONTRAT DE LOCATION N° :</strong> </h4> 
+            <input style="max-height: 30px;" class="col m3 " type="text" [(ngModel)]="NumContrat">
+        </div>
+        <div class="col m6 ">
+            <h4  class="col m8 "> <strong> Fait le :</strong> </h4> 
+            <!-- <input style="max-height: 30px;" class="col m3" type="text" [(ngModel)]="DateContrat "> -->
+            <div style="margin-top: 4px;" class="col m3 ">{{DateContrat | date: 'dd/MM/yyyy' }}</div>
+        </div>
+    </div>
+    <div class="row ">
+        <fieldset *ngIf="voiture" >
+            <legend>Véhicule</legend>
+            <div class="col m6 ">
+
+                <div class="col m6" for="">Nom : </div> <div class="col m6 ">{{voiture.name}}</div>
+                <div class="col m6" for=""> N° d'Immat :</div><div class="col m6 ">{{voiture.name}}</div>
+                <div class="col m6" for=""> type :</div><div class="col m6 ">{{voiture.type}}</div>
+                <!-- <div class="col m6" for="">couleur :</div><div class="col m6 ">{{voiture.name}}</div> -->
+                <div class="col m6" for=""> carburant :</div><div class="col m6 ">{{voiture.carburant}}</div>
+                <div class="col m6" for=""> Nombre de place :</div><div class="col m6 ">{{voiture.numberOfSeats}}</div>
+                <div class="col m6" for="">Nombre de sacs :</div><div class="col m6 ">{{voiture.numberOfBags}}</div>
+                <div class="col m6" for=""> Nombre de de porte :</div><div class="col m6 ">{{voiture.numberOfDoors}}</div>
+            </div>
+            <div class="center col m6 ">
+                <div style="max-width:50%;max-height: 50%;padding: auto;" class="card center ">
+                    <div class="card-image">
+                        <img [src]="voiture.imageUrl" >
+                     </div>
+                </div>
+            </div>  
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset >
+            <legend>Locataire</legend>
+            
+            <div *ngIf="client" class="col m6">
+              <div class="col m6" for="">CIN : </div> <div class="col m6 "><input  style="max-height: 20px;" type="text" [(ngModel)]="client.cin"></div>
+              <div class="col m6" for=""> N°-permis :</div><div class="col m6 "><input style="max-height: 20px;" type="text" [(ngModel)]="numeroPermis" name="numeroPermis"></div>
+              <div class="col m6" for=""> Delivré le:</div><div class="col m6 "><input style="max-height: 20px;" type="date" [(ngModel)]="dateDelivrance" name="dateDelivrance"></div>
+              <div class="col m6" for=""> N° du Chèque :</div><div class="col m6 "><input style="max-height: 20px;" type="text" [(ngModel)]="NumCheque" name="NumCheque"></div>                              
+            </div>
+            
+            <div *ngIf="client" class="col m6 ">
+                <div class="col m6" for=""> Nom :</div><div class="col m6 ">{{client.nom}}</div>
+                <div class="col m6" for=""> Prénom :</div><div class="col m6 ">{{client.prenom}}</div>
+                <div class="col m6" for="">Téléphone :</div><div class="col m6 ">{{client.telephone}}</div>
+                <div class="col m6" for=""> email :</div><div class="col m6 ">{{client.email}}</div>
+            </div>  
+        </fieldset>
+    </div>
+    <div *ngIf="reservation" class="row">
+        <div class="col m3"> date de début de location :</div>
+        <div class="col m3">{{reservation.startDate | date: 'dd/MM/yyyy' }}</div>
+        <div class="col m3">Date de fin de location :</div>
+        <div class="col m3">{{reservation.endDate | date: 'dd/MM/yyyy' }}</div>
+        <div class="col ">
+            <label>
+            <input 
+            type="checkbox"  [checked]="true" >
+            <span>Assuré(2ODH/jour).</span>
+          </label>
+        </div>
+    </div>
+    <div class="col">
+        <table class="bordered ">
+            <thead>
+              <tr>
+                <th>Nbre de jours</th>
+                <th>prix de 24h :  ( DH )</th>
+                <th>prix total : ( DH )</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td *ngIf="reservation"> {{calculateNumberOfDays()}}</td>
+                <td *ngIf="voiture" >{{voiture.price}}</td>
+                <td>{{calculerPrixTotal()}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="col ">
+    <pre > Conditions générales :
+        - Le client est responsable de l'utilisation et de l'entretien du véhicule loué.
+        - Le véhicule doit être restitué dans le même état qu'au début de la location.
+        - chaque jour de rtard pénalise le double du prix de 24h normal. 
+    </pre>
+    </div>
+    <div style="padding-bottom: 30px;" class="col ">
+      <div style="text-align: left; margin-left: 20px;"> Signature et cachet de l'agence: </div>
+      <div style="text-align: right;margin-right: 60px;">Signature du client:</div>
+    </div>
+    <div class="col m3 offset-m5">
+        <button [disabled]="!enregistrementReussi" class="center" id="printPageButton" (click)="imprimerContrat()">Imprimer</button>
+        <button [disabled]="enregistrementReussi" id="printPageButton" (click)="enregistrerInformations()">Enregistrer</button>
+        <button id="printPageButton" (click)="goToResevationsList()">Annuler</button>
+    </div>
+</div>
+
+
+<style>
+    table.bordered th,
+    table.bordered td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+    @media print {
+      #printPageButton {
+        display: none;
+      }
+    }
+    @media print {
+      h1 {
+        color: blue;
+      }
+    }
+  </style>

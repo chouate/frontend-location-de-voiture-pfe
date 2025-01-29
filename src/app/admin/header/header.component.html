@@ -1,0 +1,46 @@
+<nav>
+    <div class="nav-wrapper #ffffff white">
+      <a  class="brand-logo logo-container">
+        <img src="assets/images/logo.jfif" class="responsive-img materialboxed  logo-img" style="border: skyblue solid;">    
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        
+        <li>
+          <!-- <button class="  btn-large  waves-light #00b8d4 cyan accent-4" >
+            Reservation <small>NEW</small> 
+            
+            <span style="color: red;" class="notification-badge "  *ngIf="nouvellesReservations > 0">{{nouvellesReservations }}</span>
+          </button> -->
+        <!-- <i class="material-icons">notifications</i> -->
+        <button routerLink="reservations" class="btn-large waves-light #00b8d4 cyan accent-4">Reservation <small>NEW</small>
+          <span class="notification-badge" *ngIf="nouvellesReservations > 0">{{ nouvellesReservations }}</span>
+        </button>
+        </li>
+        <li><a class="btn-large  waves-light #00b8d4 cyan accent-4" >MESSAGES</a></li>
+        <li><a class="btn-large  waves-light  #d50000 red accent-4"><i class="material-icons">power_settings_new</i></a></li>
+       
+      </ul>
+      
+
+    </div>
+  </nav>
+  
+  <ul class="sidenav sidenav-fixed #ffffff white" id="mobile-nav">
+    <li>
+      <a routerLink="voitures" >Voitures<i class="material-icons ">directions_car</i></a>
+    </li>
+    <li>
+      <a >Clients<i class="material-icons">person</i></a>
+    </li>
+    <li>
+      <a (click)="goTofacture()" > Factures<i class="material-icons">monetization_on </i> </a>
+    </li>
+    <li>
+      <a routerLink="reservations">Reservation<i class="material-icons">  add_shopping_cart </i> </a>
+    </li>
+    <li>
+      <a routerLink="locations"> Locations <i class="material-icons">gesture</i> </a>
+    </li>
+  </ul>
+  
+  

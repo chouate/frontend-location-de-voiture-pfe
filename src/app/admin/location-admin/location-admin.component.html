@@ -1,0 +1,108 @@
+<div style="padding: 0px;padding-top: 30px;margin: 0%;" class=" row ">
+
+    <div class=" col m4 offset-m4 card  hoverable ">
+      <div  class=" col m6  input-field ">
+        <input type="number" id="LocationId" [(ngModel)]="searchLocationId" />
+        <label for="LocationId">Numéro de location</label>
+      </div>
+      <div style="margin-top: 25px;"  class="col m6 center">
+        <button style="color: black;" class="btn waves-light #e0e0e0 grey lighten-2" (click)="searchLocation()">Rechercher</button>
+      </div>
+    </div>  
+</div>
+<div style="padding-left: 200px;padding-top: 20px;" class="">
+    <div *ngIf="locationCherchee" class="row">
+        <div class="col s12 ">
+            <table class="table highlight bordered striped">
+                <thead>
+                  <tr class="grey lighten-2">
+                    <th>N° de contrat</th>
+                    <th>Voiture</th>
+                    <th>Client</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Status</th>
+                    <th>Date de remise</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>{{ locationCherchee.id }}</td>
+                    <td>{{ locationCherchee.voitureId }}</td>
+                    <td>{{ locationCherchee.clientId }}</td>
+                    <td>{{ locationCherchee.startDate }}</td>
+                    <td>{{ locationCherchee.endDate }}</td>
+                    <td>{{ locationCherchee.status }}</td>
+                    <td *ngIf="!locationCherchee.dateRemise">
+                        <input type="Date" [(ngModel)]="dateRemise" >
+                        <button class="btn btn-danger" (click)="ajouterDateRemise(locationCherchee)">Ajouter</button>
+                    </td>
+                    <td *ngIf="locationCherchee.dateRemise" >
+                       {{ locationCherchee.dateRemise}}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteLocation(locationCherchee.id)">Supprimer</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div> 
+    </div>
+</div>
+  
+<div style="padding-left: 200px;padding-top: 20px;" class="">
+    <div class="row">
+        <div class="col s12 ">
+            <table class="table highlight bordered striped">
+                <thead>
+                  <tr class="grey lighten-2">
+                    <th>N° de contrat</th>
+                    <th>Voiture</th>
+                    <th>Client</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Status</th>
+                    <th>Date de remise</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let location of reversedLocations">
+                    <td>{{ location.id }}</td>
+                    <td>{{ location.voitureId }}</td>
+                    <td>{{ location.clientId }}</td>
+                    <td>{{ location.startDate }}</td>
+                    <td>{{ location.endDate }}</td>
+                    <td>{{ location.status }}</td>
+                    <td *ngIf="!location.dateRemise">
+                        <input type="Date" [(ngModel)]="dateRemise" >
+                        <button class="btn btn-danger" (click)="ajouterDateRemise(location)">Ajouter</button>
+                    </td>
+                    <td *ngIf="location.dateRemise" >
+                       {{ location.dateRemise}}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteLocation(location.id)">Supprimer</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="row center">
+            <ul class="pagination">
+            <li class="waves-effect" (click)="previousPage()"><a><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect" *ngFor="let page of pages" [class.active]="currentPage === page" (click)="goToPage(page)"><a>{{ page }}</a></li>
+            <li class="waves-effect" (click)="nextPage()"><a><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,176 @@
+
+
+
+<form *ngIf="voiture" (ngSubmit)="onSubmit()" #voitureForm="ngForm">
+  <app-loader></app-loader>
+    <div class="row">
+      <div class="col s8 offset-s2">
+        <div class="card-panel">
+    
+          <!-- Voiture name -->
+          <div class="form-group">
+            <label for="name">Nom :</label>
+            <input type="text" class="form-control" id="name"
+                   
+                    pattern="^[a-zA-Z0-9àéèç ]{1,100}$"
+                   [(ngModel)]="voiture.name" name="name"
+                   #name="ngModel">
+    
+            <div [hidden]="name.valid || name.pristine"
+                  class="card-panel red accent-1">
+                  Le nom de voiture est requis (1-100).
+            </div>
+          </div>
+          <!-- Voiture imageUrl -->
+          <div class="form-group">
+            <label for="imageUrl">Image URL :</label>
+            <input type="url" class="form-control" id="imageUrl"
+                  required
+                   [(ngModel)]="voiture.imageUrl" name="imageUrl"
+                   #imageUrl="ngModel">
+            
+            <div [hidden]="imageUrl.valid || imageUrl.pristine"
+                  class="card-panel red accent-1">
+                  L'URL de voiture est requis .
+            </div>
+          </div>
+
+          <!-- voiture type -->
+          <div class="form-group">
+            <label for="type" >type :</label>
+            <input type="text" class="form-control" id="type"
+                   required
+                    pattern="^[a-zA-Zàéèç]{1,40}$"
+                   [(ngModel)]="voiture.type" name="type"
+                   #type="ngModel">
+             <div [hidden]="type.valid || type.pristine"
+                   class="card-panel red accent-1">
+                   le type de voiture est requis.
+             </div>
+          </div>
+          <!-- voiture carburant -->
+          <form class="form-group">
+            <label for="carburant">Carburant :</label>
+            <fieldset>
+              <div >
+                <p>
+                  <label>
+                    <input 
+                    type="checkbox" 
+                    required
+                    [defaultChecked]="hasType1(voiture.carburant)"
+                    [checked]="isChecked1" 
+                    (change)="onCheck1Change($event)">
+                    <span>Diesel</span>
+                  </label>
+                </p>
+              </div>
+              <div >
+                <p>
+                  <label>
+                    <input 
+                    type="checkbox" 
+                    required
+                    [defaultChecked]="hasType2(voiture.carburant)"
+                    [checked]="isChecked2" 
+                    (change)="onCheck2Change($event)">
+                    <span>Essence</span>
+                  </label>
+                </p>
+              </div>
+            </fieldset>
+            <div *ngIf="!voitureForm.valid && (voitureForm.touched || voitureForm.submitted)">
+              Au moins une case doit être sélectionnée.
+            </div>
+
+          </form>
+
+     
+
+          <!-- voiture price -->
+          <div  class="form-group">
+            <label for="price">Prix de location :</label>
+            <input type="number" class="form-control" id="price"
+                    required                   
+                    pattern="^[0-9]{1,5}$"
+                    [(ngModel)]="voiture.price" name="price"
+                    #price="ngModel">
+    
+            <div [hidden]="price.valid || price.pristine"
+                  class="card-panel red accent-1">
+                  Le prix de voiture est requis.
+            </div>
+          </div>
+          <!-- voiture numberOfDoors -->
+          <div  class="form-group">
+            <label for="numberOfDoors">Nombre de portes:</label>
+            <input type="number" class="form-control" id="numberOfDoors"
+                    required
+                    pattern="^[1-6]{1,1}$"
+                    [(ngModel)]="voiture.numberOfDoors" name="numberOfDoors"
+                    #numberOfDoors="ngModel">
+    
+            <div [hidden]="numberOfDoors.valid || numberOfDoors.pristine"
+                  class="card-panel red accent-1">
+                  Le nombre de portes de voiture est requis
+                  (entre 2 et 6 portes).
+            </div>
+          </div>
+          <!-- voiture numberOfBags -->
+          <div  class="form-group">
+            <label for="numberOfBags">Nombre de sacs :</label>
+            <input type="number" class="form-control" id="numberOfBags"
+                    required
+                    pattern="^[0-6]{1,1}$"
+                    [(ngModel)]="voiture.numberOfBags" name="numberOfBags"
+                    #numberOfBags="ngModel">
+    
+            <div [hidden]="numberOfBags.valid || numberOfBags.pristine"
+                  class="card-panel red accent-1">
+                  Le nombre de sacs de voiture est requis
+                  (entre 0 et 6 sacs).
+            </div>
+          </div>
+
+          <!-- voiture numberOfSeats -->
+          <div  class="form-group">
+            <label for="numberOfSeats">Nombre de  places :</label>
+            <input type="number" class="form-control" id="numberOfSeats"
+                    required
+                    pattern="^[2-8]{1,1}$"
+                    [(ngModel)]="voiture.numberOfSeats" name="numberOfSeats"
+                    #numberOfSeats="ngModel">
+    
+            <div [hidden]="numberOfSeats.valid || numberOfSeats.pristine"
+                  class="card-panel red accent-1">
+                  Le nombre de place de voiture est requis 
+                  (entre 2 et 8 places).
+            </div>
+          </div>
+          
+          
+    
+          <!-- Submit button -->
+          <div class="divider"></div>
+          <div class="section center">
+            <button type="submit"
+              class="waves-effect waves-light btn"
+              [disabled]="!voitureForm.form.valid || !carburantSelected "
+            >
+              Valider</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  <h3 *ngIf="!voiture" class="center">
+    <app-loader></app-loader>
+  </h3>
+  
+<!-- <app-loader></app-loader> -->
+
+    
+    
+  

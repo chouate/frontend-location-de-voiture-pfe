@@ -1,0 +1,84 @@
+
+<div style="padding-top: 40px;" class="container " >
+    <div class="row ">
+        <div class="col-md-6 ">
+            <div class="card ">
+                <div class="text-center ">
+                    <h1>Login</h1>
+                    <h6>Veuillez saisir votre email & passwword !!</h6>
+                </div>
+                <form >
+                    <form [formGroup]="LoginForm" (ngSubmit)="login()">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input formControlName="email" type="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                          <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <!-- <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div> -->
+                        <button type="submit" class="btn btn-primary mb-2">Login</button>
+                      </form>
+                      <a routerLink="/signup">Nouvel utilisateur? cliquez pour vous inscrire </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input{
+        
+        background-color: rgb(41, 104, 159);
+        border:2px solid;
+    }
+    .card{
+        border: none;
+        width: 700px;
+        padding: 40px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -0%);
+        
+        /* background: hsla(205, 46%, 30%, 1); */
+        /* background: linear-gradient(90deg,hsla(205,46%,30%,1)0%,hsla(260,29%,36%,1)100%); */
+    }
+   
+    label{
+        color: rgb(61, 132, 168);
+    }
+</style>
+<!-- <div class="bootstrap-container">
+    <div class="bootstrap-row">
+        <div class="bootstrap-col-md-6">
+            <div class="bootstrap-card">
+                <div class="bootstrap-text-center">
+                    <h1>Login</h1>
+                    <h6>Please enter email & password !!</h6>
+                </div>
+                <form>
+                    <div class="bootstrap-form-group">
+                        <label for="bootstrap-Email">Email address</label>
+                        <input type="email" class="bootstrap-form-control" id="bootstrapEmail" aria-describedby="bootstrapEmailHelp" placeholder="Enter email">
+                        <small id="bootstrapEmailHelp" class="bootstrap-form-text bootstrap-text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="bootstrap-form-group">
+                        <label for="bootstrapPassword">Password</label>
+                        <input type="password" class="bootstrap-form-control" id="bootstrapPassword" placeholder="Password">
+                    </div>
+                    <div class="bootstrap-form-check">
+                        <input type="checkbox" class="bootstrap-form-check-input" id="bootstrapCheck1">
+                        <label class="bootstrap-form-check-label" for="bootstrapCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="bootstrap-btn bootstrap-btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->

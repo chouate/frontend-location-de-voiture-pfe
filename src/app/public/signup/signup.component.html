@@ -1,0 +1,108 @@
+<div style="padding-top: 40px;" class="container " >
+    <div class="row ">
+        <div class="col-md-6 ">
+            <div class="card">
+                <div class="text-center ">
+                    <h1>S'inscrire</h1>
+                    <h6>Inscrivez-vous !!</h6>
+                </div>
+                <form >
+                    <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+                        <!-- <div class="form-group ">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="nom">Nom</label>
+                            <input formControlName="nom" type="text" class="form-control" id="nom" placeholder="Nom">
+                        </div> -->
+                        <div class="row">
+                            <div class="col m6">
+                                <div class="input-field   ">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input formControlName="nom" id="icon_prefix1" type="text" class="validate">
+                                    <label  for="icon_prefix1">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col col-md-6">
+                                <div class="input-field  ">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input formControlName="prenom" id="icon_prefix2" type="text" class="validate">
+                                    <label  for="icon_prefix2">Prenom</label>
+                                </div>
+                            </div>
+
+                        </div>
+                      
+                        <!-- <div class="form-group ">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="prenom">Prénom</label>
+                            <input formControlName="prenom" type="text" class="form-control" id="prenom" placeholder="prenom">
+                        </div> -->
+                        
+                        <!-- <div class="form-group">
+                            <i class="material-icons prefix">phone</i>
+                            <label for="telephone">Téléphone</label>
+                            <input formControlName="telephone" type="tel" class="form-control" id="telephone" placeholder="Téléphone">
+                        </div> -->
+                        <div class="input-field col s12 ">
+                            <i class="material-icons prefix">phone</i>
+                            <input formControlName="telephone" id="icon_telephone" type="tel" class="validate">
+                            <label for="icon_telephone">Telephone</label>
+                        </div>
+                        <!-- <div class="form-group ">
+                            <label for="cin">CIN</label>
+                            <input formControlName="cin" type="text" class="form-control" id="cin" placeholder="CIN">
+                        </div> -->
+                        <div class="input-field col s12">
+                            <label for="cin">CIN</label>
+                            <input formControlName="cin" type="text" class="validate" id="cin" >
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                          <label for="exampleInputEmail1">Adresse e-mail</label>
+                          <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entez email">
+                          <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre</small>
+                        </div> -->
+                        <div class="input-field col s12">
+                            <input formControlName="email" id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="wrong" data-success="right">Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre</span>
+                        </div>
+                        <!-- <div class="form-group">
+                          <label for="exampleInputPassword3">Mot de passe</label>
+                          <input formControlName="password" type="password" class="form-control" id="exampleInputPassword3" placeholder="Mot de passe">
+                        </div> -->
+                        <div class="input-field col s12">
+                            <input formControlName="password" id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                        <!-- <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Vérifiez-moi</label>
+                        </div> -->
+                        <button type="submit" class="btn btn-primary mb-2">S'inscrire</button>
+                      </form>
+                      <a routerLink="/login">Déjà inscrit ? cliquez pour vous connecter </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card{
+        border: none;
+        width: 700px;
+        padding: 40px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , 0%);
+        /* background: hsla(205, 46%, 30%, 1);
+        background: linear-gradient(90deg,hsla(205,46%,30%,1)0%,hsla(260,29%,36%,1)100%); */
+    }
+   
+    label{
+        color: rgb(44, 108, 164);
+    }
+</style>
+
+

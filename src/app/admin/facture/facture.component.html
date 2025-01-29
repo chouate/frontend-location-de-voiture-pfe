@@ -1,0 +1,114 @@
+<div class="container" id="printPageButton">
+    <div class="row">
+        <div style="padding: 0px;padding-top: 30px;margin: 0%;" class=" row ">
+
+            <div class=" col m4 offset-m4 card  hoverable ">
+              <div  class=" col m6  input-field ">
+                <input type="number" id="reservationId" [(ngModel)]="searchContratId" />
+                <label for="reservationId">N° du contrat</label>
+              </div>
+              <div style="margin-top: 25px;"  class="col m6 center">
+                <button style="color: black;" class="btn waves-light #e0e0e0 grey lighten-2" (click)="searchContrat()">Rechercher</button>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+<div style="border: 2px solid black; padding: 10px;" class="container ">
+    <div class="row ">
+        <div class="col m6 ">
+            <h4 class="col m8 "> <strong> Facture N°:</strong> </h4> 
+            <div></div>
+        </div>
+
+        <fieldset class="col m12 " >
+            <legend>Locataire</legend> 
+            <div  class="col m6" >
+                <div class="col m6" for=""> Nom :</div><div *ngIf="client" class="col m6 ">{{client.nom}}</div>
+                <div class="col m6" for=""> Prénom :</div><div *ngIf="client" class="col m6 ">{{client.prenom}}</div>
+                <div class="col m6" for="">Téléphone :</div><div *ngIf="client" class="col m6 ">{{client.telephone}}</div>
+            </div>  
+        </fieldset>
+
+        <fieldset  >
+            <legend>Véhicule</legend>
+            <div class="col m6 ">
+
+                <div class="col m6" for="">Nom : </div> <div *ngIf="voiture" class="col m6 ">{{voiture.name}}</div>
+                <div class="col m6" for=""> type :</div><div *ngIf="voiture" class="col m6 ">{{voiture.type}}</div>
+                <div class="col m6" for=""> carburant :</div><div *ngIf="voiture" class="col m6 ">{{voiture.carburant}}</div>
+                <div class="col m6" for=""> Nombre de place :</div><div *ngIf="voiture" class="col m6 ">{{voiture.numberOfSeats}}</div>
+                <div class="col m6" for="">Nombre de sacs :</div><div *ngIf="voiture" class="col m6 ">{{voiture.numberOfBags}}</div>
+                <div class="col m6" for=""> Nombre de de porte :</div><div *ngIf="voiture" class="col m6 ">{{voiture.numberOfDoors}}</div>
+            </div>  
+        </fieldset>
+        <div class="row">
+            <fieldset>
+                <legend>Location</legend>
+                <div class="row">
+                    <div class="col m3"> Début de location :</div>
+                    <div *ngIf="location " class="col m3">{{location.startDate | date: 'dd/MM/yyyy' }}</div>
+                    <div class="col m3">Fin de location :</div>
+                    <div *ngIf="location " class="col m3">{{location.endDate | date: 'dd/MM/yyyy' }}</div>
+                    <div class="col m3">Date de remise :</div>
+                    <div *ngIf="location " class="col m3">{{location.dateRemise | date: 'dd/MM/yyyy' }}</div>
+                </div>
+            </fieldset>
+        </div>
+        
+        <div class="row">
+            <div class="col m12">
+                <table class="bordered ">
+                    <thead>
+                      <tr>
+                        <th>Nbre de jours</th>
+                        <th>Prix de 24h :  ( DH )</th>
+                        <th>Prix total : ( DH )</th>
+                        <th>Prix total d'assurance (20DH/jour):</th>
+                        <th>Nbre de jours de retard :</th>
+                        <th>Total de pénalité(DH):</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td *ngIf="location"> {{calculateNumberOfDays()}}</td>
+                        <td *ngIf="voiture" >{{voiture.price}}</td>
+                        <td>{{calculerPrixTotal()}}</td>
+                        <td>{{calculerPrixTotalAssurance()}}</td>
+                        <td > {{calculateNumberOfDaysRetard()}}</td>
+                        <td>{{calculerPrixTotalPenalite()}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        
+        <div class="row" >
+            <div  class="col m3 "> Total de la facture :</div><div class="col m2" >{{calculateTotalFacture()}} DH</div>
+        </div>
+        <div class="col m3 offset-m5">
+            <button [disabled]="!enregistrementReussi" class="center" id="printPageButton" (click)="imprimerContrat()">Imprimer</button>
+            <!-- <button [disabled]="enregistrementReussi" id="printPageButton" (click)="enregistrerInformations()">Enregistrer</button> -->
+            <!-- <button id="printPageButton" (click)="goToResevationsList()">Annuler</button> -->
+        </div>
+    </div>
+</div>
+<style>
+    table.bordered th,
+    table.bordered td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+    @media print {
+      #printPageButton {
+        display: none;
+      }
+    }
+    @media print {
+      h1 {
+        color: blue;
+      }
+    }
+</style>
+  

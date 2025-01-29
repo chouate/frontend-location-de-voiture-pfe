@@ -1,0 +1,121 @@
+
+
+
+<div style="padding: 10px;" class="container">
+  <div *ngIf="reservations.length > 0" class="row ">
+    <h2 class="center">Bonjour {{ client.fullname }}</h2>
+    <div  *ngFor="let reservation of reversedReservations;let i = index " class="col m12  card hoverable ">
+     
+      <div style="margin-top: 10px;" class="col m3  center">
+        <div style="border-bottom: 1px ridge rgb(135, 130, 130);" class="col m12 center">
+          <h5>voiture</h5>
+        </div >
+         <div class="col m12">
+          <p>{{voitureNames[i]}}</p>
+        </div>
+      </div>
+      <div  class="col m5 center ">
+        <div style="border-bottom:  2px dotted #666;" class="col m12">
+          <h5>
+            Date de reservation
+            <i class="material-icons">today</i>
+          </h5>
+        </div>
+        <div class="col m12">
+          <p>{{ reservation.startDate | date : 'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="col m12">
+          <p>{{ reservation.endDate | date : 'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+      <div style="margin-top: 10px;" class="col m3 center">
+        <div style="border-bottom:1px inset #888;" class="col m412">
+          <h5>État de la réservation</h5>
+        </div>
+        <div class="col m12 center ">
+          <p [ngClass]="{'confirmed': reservation.status === 'Confirmée','attente': reservation.status === 'En attente', 'cancelled': reservation.status === 'Annulée'}">{{ reservation.status }}</p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid black ;background-color: lightgreen;" *ngIf="reservation.status === 'Confirmée' || reservation.status === 'transformée'" class="col m12 center ">
+        <div class="col m6 ">
+          <p>
+             Bonjour {{ client.fullname }} Votre réservaton a été validé, il faut visiter notre agence
+          </p>
+          <p>Nous vous souhaitons un agréable voyage!</p>
+        </div>
+        <div class="col m6 ">
+          <p >
+            <strong>Numéro de la réservation :</strong>
+            {{ reservation.id }}
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid black ;background-color:lightpink;" *ngIf="reservation.status === 'Annulée'" class="col m12  ">
+        <div class="col m12 offset-m0 ">
+          <p>Bonjour {{ client.fullname }} Votre réservaton n'a pas été validé, </p>
+          <p>Nous vous encourageons à explorer d'autres options de réservation disponibles sur notre plateforme.</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid black ;background-color:lemonchiffon;" *ngIf="reservation.status === 'En attente'" class="col m12 center">
+        <div class="col m12 ">
+          <p>
+            Votre demande a été enregistré, nous essayerons de vous répondre le plus tôt possible
+          </p>
+          <p>Nous vous encourageons à consulter régulièrement l'état de votre réservation sur notre plateforme</p>
+          <p>Merci de votre confiance et de votre collaboration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 50px;"  class=" hoverable">
+    <div *ngIf="reservations.length === 0" class="no-reservation-message ">
+      <h2 class="center">Bonjour {{ client.fullname }}</h2>
+      <div class="card-image">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_A9-1uWzGn0AEbiqbmLW0hM3hwYbjTTty7A&usqp=CAU">
+      </div>
+      <p> Aucune réservation à suivre pour le moment.</p>
+      <p>Nous vous encourageons à explorer les options de réservation disponibles sur notre plateforme.</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="row center">
+    <ul class="pagination">
+      <li class="waves-effect" (click)="previousPage()"><a><i class="material-icons">chevron_left</i></a></li>
+      <li class="waves-effect" *ngFor="let page of pages" [class.active]="currentPage === page" (click)="goToPage(page)"><a>{{ page }}</a></li>
+      <li class="waves-effect" (click)="nextPage()"><a><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+  </div>
+  
+
+</div>
+
+
+
+
+
+<style>
+  .confirmed {
+    color: green;
+  }
+
+  .cancelled {
+    color: red;
+  }
+  .attente{
+    color: rgb(255, 183, 0);
+  }
+  .no-reservation-message {
+    padding: 10px;
+    background-color: #f2f2f2;
+    text-align: center;
+    font-weight: bold;
+    color: #888;
+  }
+</style>
+

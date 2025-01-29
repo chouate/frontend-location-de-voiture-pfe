@@ -1,0 +1,28 @@
+
+  <!-- <div style="padding-right:10;padding-top: 100px;" class="container"  >    -->
+    
+    <div style="padding-left:200px;padding-top: 100px;" class="row" >
+        <div *ngFor="let voiture of voitureList " class="col m3 s4">
+            <div (click)="goToVoiture(voiture)" class="card horizontal" appBorderCard>
+                <div class="card-image">
+                    <img style="scroll-margin-top: 50px;" [src]="voiture.imageUrl" />
+                    <h2 >{{voiture.price}} MAD </h2>
+                </div>
+                <div class="card-stacked" >
+                    <div class="card-content">
+
+                        <p >{{  voiture.name}}</p>
+                        <!-- <p ><small>{{ voiture.carburant }}</small></p> -->
+                        <span  class="{{voiture.carburant | voitureCarburantColor}}">
+                            {{voiture.carburant}}
+                        </span>
+                       <p>{{voiture.type}}</p>
+                       <p>{{voiture.nom}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+<app-addbtn></app-addbtn>
